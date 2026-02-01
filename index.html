@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dawn — Alarm Clock</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      :root {
+        --bg-deep: #0a0a0b;
+        --bg-surface: #141416;
+        --bg-elevated: #1c1c1f;
+        --amber-glow: #f59e0b;
+        --amber-soft: #fbbf24;
+        --amber-dim: #92400e;
+        --text-primary: #fafafa;
+        --text-secondary: #a1a1aa;
+        --text-muted: #52525b;
+      }
+      
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      body {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        background: var(--bg-deep);
+        color: var(--text-primary);
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+      
+      .font-outfit {
+        font-family: 'Outfit', sans-serif;
+      }
+      
+      .bg-deep { background: var(--bg-deep); }
+      .bg-surface { background: var(--bg-surface); }
+      .bg-elevated { background: var(--bg-elevated); }
+      
+      .text-amber-glow { color: var(--amber-glow); }
+      .text-amber-soft { color: var(--amber-soft); }
+      .text-secondary { color: var(--text-secondary); }
+      .text-muted { color: var(--text-muted); }
+      
+      .glow-amber {
+        text-shadow: 0 0 40px rgba(245, 158, 11, 0.4),
+                     0 0 80px rgba(245, 158, 11, 0.2);
+      }
+      
+      .glow-box {
+        box-shadow: 0 0 60px rgba(245, 158, 11, 0.15),
+                    0 0 100px rgba(245, 158, 11, 0.08);
+      }
+      
+      .ambient-gradient {
+        background: radial-gradient(ellipse at 50% 0%, rgba(245, 158, 11, 0.08) 0%, transparent 60%),
+                    radial-gradient(ellipse at 50% 100%, rgba(245, 158, 11, 0.03) 0%, transparent 50%),
+                    var(--bg-deep);
+      }
+      
+      @keyframes pulse-ring {
+        0% {
+          transform: scale(1);
+          opacity: 0.6;
+        }
+        100% {
+          transform: scale(2.5);
+          opacity: 0;
+        }
+      }
+      
+      @keyframes gentle-pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.7; }
+      }
+      
+      .alarm-ring::before,
+      .alarm-ring::after {
+        content: '';
+        position: absolute;
+        inset: -20px;
+        border-radius: 50%;
+        border: 2px solid var(--amber-glow);
+        animation: pulse-ring 1.5s ease-out infinite;
+      }
+      
+      .alarm-ring::after {
+        animation-delay: 0.75s;
+      }
+      
+      .alarm-active {
+        animation: gentle-pulse 1s ease-in-out infinite;
+      }
+      
+      input[type="time"]::-webkit-calendar-picker-indicator {
+        filter: invert(0.7) sepia(1) saturate(5) hue-rotate(0deg);
+        cursor: pointer;
+      }
+      
+      .toggle-track {
+        transition: background-color 0.3s ease;
+      }
+      
+      .toggle-thumb {
+        transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      
+      .fade-in {
+        animation: fadeIn 0.6s ease-out;
+      }
+      
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      
+      .btn-glow:hover {
+        box-shadow: 0 0 30px rgba(245, 158, 11, 0.4);
+      }
+      
+      .time-colon {
+        animation: blink 1s step-end infinite;
+      }
+      
+      @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.3; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
